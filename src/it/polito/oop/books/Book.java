@@ -7,6 +7,8 @@ import java.util.TreeMap;
 public class Book {
 
 	TreeMap<String, Topic> topics = new TreeMap<>();
+	TreeMap<String, TheoryChapter> theoryChapters = new TreeMap<>();
+	TreeMap<String, ExerciseChapter> exerciseChapters = new TreeMap<>();
 
     /**
 	 * Creates a new topic, if it does not exist yet, or returns a reference to the
@@ -29,11 +31,15 @@ public class Book {
 	}
 
 	public TheoryChapter createTheoryChapter(String title, int numPages, String text) {
-        return null;
+		TheoryChapter t= new TheoryChapter(title, numPages, text);
+		theoryChapters.put(title, t);
+        return t;
 	}
 
 	public ExerciseChapter createExerciseChapter(String title, int numPages) {
-        return null;
+        ExerciseChapter t= new ExerciseChapter(title, numPages);
+		exerciseChapters.put(title, t);
+        return t;
 	}
 
 	public List<Topic> getAllTopics() {
