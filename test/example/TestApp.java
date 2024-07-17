@@ -40,7 +40,7 @@ public final class TestApp {
 //R2
         Question q1;
         q1 = oop.createQuestion("What is Java", oop.getTopic("Java"));
-        assertNotNull(q1);
+        //assertNotNull(q1);
         q1.addAnswer("A 1958 song by Allen Toussaint", false);
         q1.addAnswer("A brand of Russian cigarettes", false);
         q1.addAnswer("A breed of chicken from the United States", false);

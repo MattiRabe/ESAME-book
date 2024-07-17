@@ -23,7 +23,9 @@ public class Book {
 	}
 
 	public Question createQuestion(String question, Topic mainTopic) {
-        return null;
+		Question q = new Question(question, mainTopic);
+		topics.get(mainTopic.getKeyword()).addQuestion(q);
+        return q;
 	}
 
 	public TheoryChapter createTheoryChapter(String title, int numPages, String text) {

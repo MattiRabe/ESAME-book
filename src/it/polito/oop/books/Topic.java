@@ -2,6 +2,7 @@ package it.polito.oop.books;
 
 import java.util.List;
 import java.util.TreeMap;
+import java.util.HashSet;
 import java.util.stream.Collectors;
 
 public class Topic {
@@ -9,6 +10,7 @@ public class Topic {
 
 	private String keyWord;
 	private TreeMap<String, Topic> subTopics = new TreeMap<>();
+	private HashSet<Question> questions = new HashSet<>();
 
 	public Topic(String keyword){
 		this.keyWord=keyword;
@@ -37,5 +39,9 @@ public class Topic {
 	 */
 	public List<Topic> getSubTopics() {
         return subTopics.values().stream().collect(Collectors.toList());
+	}
+
+	public void addQuestion(Question q){
+		questions.add(q);
 	}
 }
