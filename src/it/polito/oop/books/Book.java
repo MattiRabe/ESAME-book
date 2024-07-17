@@ -2,8 +2,11 @@ package it.polito.oop.books;
 
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class Book {
+
+	TreeMap<String, Topic> topics = new TreeMap<>();
 
     /**
 	 * Creates a new topic, if it does not exist yet, or returns a reference to the
@@ -14,7 +17,9 @@ public class Book {
 	 * @throws BookException
 	 */
 	public Topic getTopic(String keyword) throws BookException {
-	    return null;
+		if(keyword==null || keyword.isEmpty()) throw new BookException();
+		if(topics.get(keyword)==null) topics.put(keyword, new Topic(keyword));
+	    return topics.get(keyword);
 	}
 
 	public Question createQuestion(String question, Topic mainTopic) {

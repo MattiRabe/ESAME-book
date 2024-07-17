@@ -1,15 +1,22 @@
 package it.polito.oop.books;
 
 import java.util.Set;
+import java.util.TreeMap;
+import java.util.LinkedList;
+
 
 public class Question {
+
+	private String question;
+	private Topic topic;
+	private TreeMap<Boolean, LinkedList<String>> answers = new TreeMap<>();
 	
 	public String getQuestion() {
-		return null;
+		return question;
 	}
 	
 	public Topic getMainTopic() {
-		return null;
+		return topic;
 	}
 
 	public void addAnswer(String answer, boolean correct) {
@@ -18,7 +25,7 @@ public class Question {
 	
     @Override
     public String toString() {
-        return null;
+        return question + "(" + topic.getKeyword() + ")";
     }
 
 	public long numAnswers() {
