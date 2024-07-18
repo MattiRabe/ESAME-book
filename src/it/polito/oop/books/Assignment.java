@@ -24,12 +24,21 @@ public class Assignment {
     }
 
     public double addResponse(Question q,List<String> answers) {
-        
-        return -1.0;
+        Double N, FP, FN; 
+        Double ris;
+        N=(double) q.numAnswers();
+        FP= (double)answers.stream().filter(a->q.getIncorrectAnswers().contains(a)).count();
+        Integer cn= q.getCorrectAnswers().size();
+        Double c= (double)answers.stream().filter(a->q.getCorrectAnswers().contains(a)).count();
+        FN=cn-c;
+        ris=(N - FP - FN)/N;
+        this.answers.put(q, ris);
+        return ris;
     }
     
     public double totalScore() {
-        return -1.0;
+        Double tot=0.0;
+        for(Double d : answers.values()) tot+=d;
+        return tot;
     }
-
 }
