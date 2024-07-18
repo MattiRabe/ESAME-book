@@ -13,6 +13,7 @@ public class Book {
 	TreeMap<String, TheoryChapter> theoryChapters = new TreeMap<>();
 	TreeMap<String, ExerciseChapter> exerciseChapters = new TreeMap<>();
 	HashSet<Question> questions = new HashSet<>();
+	TreeMap<String, Assignment> assignments = new TreeMap<>();
 
     /**
 	 * Creates a new topic, if it does not exist yet, or returns a reference to the
@@ -69,7 +70,9 @@ public class Book {
 	}
 
 	public Assignment newAssignment(String ID, ExerciseChapter chapter) {
-        return null;
+		Assignment a = new Assignment(ID, chapter);
+		assignments.put(a.getID(), a);
+        return a;
 	}
 	
     /**
