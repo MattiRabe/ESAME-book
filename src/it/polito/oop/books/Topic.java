@@ -9,11 +9,13 @@ public class Topic {
 
 
 	private String keyWord;
+	private Integer popularity;
 	private TreeMap<String, Topic> subTopics = new TreeMap<>();
 	private HashSet<Question> questions = new HashSet<>();
 
 	public Topic(String keyword){
 		this.keyWord=keyword;
+		this.popularity=0;
 	}
 
 	public String getKeyword() {
@@ -22,7 +24,7 @@ public class Topic {
 	
 	@Override
 	public String toString() {
-	    return keyWord;
+	    return keyWord + ":" + popularity;
 	}
 
 	public boolean addSubTopic(Topic topic) {
@@ -43,5 +45,13 @@ public class Topic {
 
 	public void addQuestion(Question q){
 		questions.add(q);
+	}
+
+	public Integer getPopularity(){
+		return popularity;
+	}
+
+	public void incrementPopularity(){
+		popularity++;
 	}
 }

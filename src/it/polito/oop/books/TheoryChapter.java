@@ -1,7 +1,6 @@
 package it.polito.oop.books;
-
-import java.util.HashSet;
 import java.util.List;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 import java.util.Comparator;
 
@@ -11,7 +10,7 @@ public class TheoryChapter {
     private String title;
     private Integer numPages;
     private String text;
-    private HashSet<Topic> topics = new HashSet<>();
+    TreeMap<String, Topic> topics = new TreeMap<>();
 
     public TheoryChapter(String title, Integer numPages, String text){
         this.title=title;
@@ -29,7 +28,7 @@ public class TheoryChapter {
 
 
 	public List<Topic> getTopics() {
-        return topics.stream().sorted(Comparator.comparing(Topic :: getKeyword)).collect(Collectors.toList());
+        return topics.values().stream().sorted(Comparator.comparing(Topic :: getKeyword)).collect(Collectors.toList());
 	}
 
     public String getTitle() {
@@ -49,10 +48,15 @@ public class TheoryChapter {
     }
     
     public void addTopic(Topic topic) {
-        topics.add(topic);
+        topics.put(topic.getKeyword(), topic);
+        topic.incrementPopularity();
         if(topic.getSubTopics().size()==0) return;
         for(Topic t : topic.getSubTopics()){
             addTopic(t);
         }
+    }
+
+    public TreeMap<String, Topic> getTopicMap(){
+        return topics;
     }
 }

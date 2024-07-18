@@ -1,14 +1,18 @@
 package it.polito.oop.books;
 
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 public class Book {
 
 	TreeMap<String, Topic> topics = new TreeMap<>();
 	TreeMap<String, TheoryChapter> theoryChapters = new TreeMap<>();
 	TreeMap<String, ExerciseChapter> exerciseChapters = new TreeMap<>();
+	HashSet<Question> questions = new HashSet<>();
 
     /**
 	 * Creates a new topic, if it does not exist yet, or returns a reference to the
@@ -27,6 +31,7 @@ public class Book {
 	public Question createQuestion(String question, Topic mainTopic) {
 		Question q = new Question(question, mainTopic);
 		topics.get(mainTopic.getKeyword()).addQuestion(q);
+		questions.add(q);
         return q;
 	}
 
@@ -43,11 +48,24 @@ public class Book {
 	}
 
 	public List<Topic> getAllTopics() {
-        return null;
+        return topics.values().stream().collect(Collectors.toList());
 	}
 
 	public boolean checkTopics() {
-        return false;
+		Boolean present;
+		for(ExerciseChapter c : exerciseChapters.values()){
+			for(Topic t : c.getTopics()){
+				present=false;
+				for(TheoryChapter tc : theoryChapters.values()){
+					if(tc.getTopicMap().containsValue(t)){
+						present=true;
+						break;
+					}
+				}
+				if(present==false) return false;
+			}
+		}
+        return true;
 	}
 
 	public Assignment newAssignment(String ID, ExerciseChapter chapter) {
@@ -60,6 +78,11 @@ public class Book {
      * @return
      */
     public Map<Long,List<Question>> questionOptions(){
-        return null;
+        return questions.stream().collect(Collectors.groupingBy(Question :: numAnswers));
     }
+
+	public List<String> topicPopularity(){
+		return topics.values().stream().sorted(Comparator.comparing(Topic::getPopularity).reversed()
+		.thenComparing(Topic::getKeyword)).map(Topic::toString).collect(Collectors.toList());
+	}
 }
